@@ -1,3 +1,4 @@
+import { LoginService } from './../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { passwordValidator } from 'src/validators/password-validator';
@@ -9,7 +10,9 @@ import { passwordValidator } from 'src/validators/password-validator';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  mensagem: string = "";
+
+  constructor(private loginService:LoginService) { }
 
   //definindo o formulário
 
@@ -34,7 +37,15 @@ export class LoginComponent implements OnInit {
   //função para executar o SUBMIT do formulário
 
   onSubmit(){
-    console.log(this.formLogin.value);
+    var data = this.formLogin.value
+
+    if(this.loginService.signIn(data)){
+      //recarregar a pagina inicial do sistema 
+      window.location.href = "/";
+
+    }else{
+      this.mensagem = "Acesso negado. Usuário inválido";
+    }
   }
 
 }

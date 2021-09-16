@@ -9,14 +9,16 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoutingModule } from './routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { DadosUsuarioComponent } from './dados-usuario/dados-usuario.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    DadosUsuarioComponent
   ],
   imports: [
     BrowserModule,

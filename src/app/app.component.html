@@ -1,10 +1,7 @@
-<mat-sidenav-container>
+<!-- CONTEUDO DO USUARIO AUTENTICADO -->
+<mat-sidenav-container *ngIf="isLoggedIn">
   <mat-sidenav #sidenav role="navigation">
     <mat-nav-list>
-      <a mat-list-item routerLink="login">
-        <mat-icon class="icon">input</mat-icon>
-        <span class="label">Login de Usuário</span>
-      </a>
       <a mat-list-item routerLink="home">
         <mat-icon class="icon">home</mat-icon>
         <span class="label">Página inicial</span>
@@ -13,7 +10,7 @@
         <mat-icon class="icon">dashboard</mat-icon>
         <span class="label">Dashboard</span>
       </a>
-      <a mat-list-item type="button">
+      <a mat-list-item type="button" (click)="logout()">
         <mat-icon class="icon">input</mat-icon>
         <span class="label">Sair do Sistema</span>
       </a>
@@ -34,12 +31,6 @@
       <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
         <ul fxLayout fxLayoutGap="20px" class="navigation-items">
           <li>
-            <a routerLink="login">
-              <mat-icon class="icon">input</mat-icon>
-              <span class="label">Login de Usuário</span>
-            </a>
-          </li>
-          <li>
             <a routerLink="home">
               <mat-icon class="icon">home</mat-icon>
               <span class="label">Página inicial</span>
@@ -52,7 +43,7 @@
             </a>
           </li>
           <li>
-            <a>
+            <a (click)="logout()">
               <mat-icon class="icon">input</mat-icon>
               <span class="label">Sair do Sistema</span>
             </a>
@@ -61,7 +52,15 @@
       </div>
     </mat-toolbar>
     <main>
+      <app-dados-usuario></app-dados-usuario>
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>
+ 
+<div *ngIf="!isLoggedIn">
+  <!-- CONTEUDO DO USUARIO NÃO AUTENTICADO -->
+  <main>
+    <app-login></app-login>
+  </main>
+</div>

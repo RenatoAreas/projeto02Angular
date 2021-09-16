@@ -8,36 +8,34 @@ export function passwordValidator(control: AbstractControl) {
         return { passwordInvalid: true };
     }
  
-    //criando as verificações do campo de senha
     //não pode ter menos de 8 caracteres
     else if (control.value.length < 8) {
         return { passwordInvalid: true };
     }
  
-    //criando as verificações do campo de senha
     //não pode ter mais de 20 caracteres
     else if (control.value.length > 20) {
         return { passwordInvalid: true };
     }
-
-    //verificar se a senha possui pelo meno 1 digito numerico
+ 
+    //verificando se a senha possui pelo menos 1 digito numerico
     else if (!control.value.match(/[0-9]+/)) {
         return { passwordAnyDigit: true };
     }
-
-    //verificar se a senha possui pelo meno 1 letra maiuscula
+ 
+    //verificando se a senha possui pelo menos 1 letra maiuscula
     else if (!control.value.match(/[A-Z]+/)) {
-        return { passwordIsUpper: true };
+        return { passwordAnyIsUpper: true };
     }
-
-     //verificar se a senha possui pelo meno 1 letra minuscula
-     else if (!control.value.match(/[a-z]+/)) {
-        return { passwordIsLower: true };
+ 
+    //verificando se a senha possui pelo menos 1 letra minuscula
+    else if (!control.value.match(/[a-z]+/)) {
+        return { passwordAnyIsLower: true };
     }
-
-    //verificar se a senha possui pelo meno 1 letra minuscula
+ 
+    //verificando se a senha possui pelo menos 1 caractere especial
     else if (!control.value.match(/[@#$%&]+/)) {
-        return { passwordIsSpecialChar: true };
+        return { passwordAnyIsSpecialChar: true };
     }
  
     return null;

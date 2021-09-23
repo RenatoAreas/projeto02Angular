@@ -10,6 +10,14 @@
         <mat-icon class="icon">dashboard</mat-icon>
         <span class="label">Dashboard</span>
       </a>
+      <a mat-list-item routerLink="cadastro-contatos">
+        <mat-icon class="icon">person_add</mat-icon>
+        <span class="label">Cadastrar Contatos</span>
+      </a>
+      <a mat-list-item routerLink="consulta-contatos">
+        <mat-icon class="icon">person_search</mat-icon>
+        <span class="label">Consultar Contatos</span>
+      </a>
       <a mat-list-item type="button" (click)="logout()">
         <mat-icon class="icon">input</mat-icon>
         <span class="label">Sair do Sistema</span>
@@ -43,6 +51,18 @@
             </a>
           </li>
           <li>
+            <a routerLink="cadastro-contatos">
+              <mat-icon class="icon">person_add</mat-icon>
+              <span class="label">Cadastrar Contatos</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="consulta-contatos">
+              <mat-icon class="icon">person_search</mat-icon>
+              <span class="label">Consulta Contatos</span>
+            </a>
+          </li>
+          <li>
             <a (click)="logout()">
               <mat-icon class="icon">input</mat-icon>
               <span class="label">Sair do Sistema</span>
@@ -58,9 +78,10 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
  
-<div *ngIf="!isLoggedIn">
+<div class="bg-color" *ngIf="!isLoggedIn">
   <!-- CONTEUDO DO USUARIO NÃO AUTENTICADO -->
   <main>
+    <!-- exibir o componente de login -->
     <app-login></app-login>
   </main>
 </div>

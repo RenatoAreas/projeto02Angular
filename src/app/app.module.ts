@@ -10,7 +10,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoutingModule } from './routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { DadosUsuarioComponent } from './dados-usuario/dados-usuario.component'
+import { DadosUsuarioComponent } from './dados-usuario/dados-usuario.component';
+import { CadastroContatosComponent } from './cadastro-contatos/cadastro-contatos.component'
+import { NgxMaskModule,IConfig } from 'ngx-mask';
+import { ConsultaContatosComponent } from './consulta-contatos/consulta-contatos.component';
+export const options: Partial<IConfig> | (() => Partial<IConfig>) | null = null;
+
 
 @NgModule({
   declarations: [
@@ -18,7 +23,9 @@ import { DadosUsuarioComponent } from './dados-usuario/dados-usuario.component'
     HomeComponent,
     DashboardComponent,
     LoginComponent,
-    DadosUsuarioComponent
+    DadosUsuarioComponent,
+    CadastroContatosComponent,
+    ConsultaContatosComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +34,8 @@ import { DadosUsuarioComponent } from './dados-usuario/dados-usuario.component'
     FlexLayoutModule,
     RoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

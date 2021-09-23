@@ -1,0 +1,81 @@
+<div class="main-div">
+
+    <mat-card class="login-card">
+        <mat-card-title>Cadastro de Contatos</mat-card-title>
+        <mat-card-subtitle>Preencha o formulario para incluir um contato.</mat-card-subtitle>
+        <mat-card-content>
+
+            <form [formGroup]="formCadastro" (ngSubmit)="onSubmit($event)" autocomplete="off">
+
+                <mat-grid-list cols="3" rowHeight="5rem" [gutterSize] = "'20px'">
+
+                    <mat-grid-tile>
+
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Nome do Contato:</mat-label>
+                            <input type="text" matInput placeholder="Ex: João da Silva" formControlName="nome" />
+
+                            <mat-error *ngIf="form.nome.touched && form.nome.invalid && form.nome.errors.required">
+                                Por favor, informe o nome do contato.
+                            </mat-error>
+
+                            <mat-error *ngIf="form.nome.touched && form.nome.invalid && form.nome.errors.minlength">
+                                Por favor, informe no mínimo 10 caracteres.
+                            </mat-error>
+
+                        </mat-form-field>
+
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Email do Contato:</mat-label>
+                            <input type="text" matInput placeholder="Ex: joaosilva@email.com" formControlName="email" />
+
+                            <mat-error *ngIf="form.email.touched && form.email.invalid && form.email.errors.required">
+                                Por favor, informe um email valido.
+                            </mat-error>
+
+                            <mat-error *ngIf="form.email.touched && form.email.invalid && form.email.errors.email">
+                                Por favor, informe um endereço de email valido.
+                            </mat-error>
+
+                        </mat-form-field>
+
+
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Telefone do Contato:</mat-label>
+                            <input type="text" matInput placeholder="Ex: (21)99999-9999" formControlName="telefone" mask="(00) 00000-0000"/>
+
+                            <mat-error *ngIf="form.telefone.touched && form.telefone.invalid && form.telefone.errors.required">
+                                Por favor, informe um telefone valido.
+                            </mat-error>
+
+                        </mat-form-field>
+
+
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+
+                <div class="field">
+                    <button [disabled]="!formCadastro.valid" mat-raised-button color="primary" type="submit">
+                        Realizar Cadastro
+                    </button>
+                </div>
+
+            </form>
+
+            <br/>
+
+            <strong>{{mensagem}}</strong>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

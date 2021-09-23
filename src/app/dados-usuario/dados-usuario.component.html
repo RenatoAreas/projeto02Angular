@@ -1,15 +1,29 @@
 <mat-card>
-    <mat-card-title>Seja bem vindo: {{nome}}</mat-card-title>
-    <mat-card-subtitle>Sistema de controle de contatos v1.0</mat-card-subtitle>
     <mat-card-content>
  
-        <div>Nome do Usuário: {{nome}}</div>
-     
+        <mat-grid-list cols="3" rowHeight="4rem" [gutterSize]="'20px'">
  
-        <div>Email: {{email}}</div>
-       
-        <div>Data/Hora de acesso: {{data |date: 'dd/MM/yyyy HH:mm'}}</div>
-     
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <img style="height: 60px;" src="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.png"/>
+            </mat-grid-tile>
+ 
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <div>
+                    <div><strong>Seja bem vindo: {{nome}}</strong></div>
+                    <div>Sistema de controle de contatos v1.0</div>
+                    <div>COTI INFORMATICA - Treinamento Angular</div>
+                </div>
+            </mat-grid-tile>
+ 
+            <mat-grid-tile [colspan]="1" [rowspan]="1">
+                <div>
+                    <div>Nome do Usuário: {{nome}}</div>
+                    <div>Email: {{email}}</div>
+                    <div>Data/Hora de acesso: {{data | date : 'dd/MM/yyyy HH:mm'}}</div>
+                </div>
+            </mat-grid-tile>
+ 
+        </mat-grid-list>
  
     </mat-card-content>
 </mat-card>

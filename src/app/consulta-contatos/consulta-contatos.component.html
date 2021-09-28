@@ -1,1 +1,74 @@
-<p>consulta-contatos works!</p>
+<div class="main-div">
+
+  <mat-card class="login-card">
+      <mat-card-title>Consulta de Contatos</mat-card-title>
+      <mat-card-subtitle>Listagem de contatos cadastrados no sistema.</mat-card-subtitle>
+      <mat-card-content>
+
+          <p>
+              <strong>{{mensagem}}</strong>
+          </p>
+
+          <!-- régua de paginação -->
+          <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Página anterior"
+              nextLabel="Próxima página"></pagination-controls>
+
+          <table mat-table [dataSource]="consulta_contatos | paginate : { itemsPerPage: 5, currentPage: page }">
+
+              <!-- coluna ID -->
+              <ng-container matColumnDef="idContato">
+                  <th mat-header-cell *matHeaderCellDef>ID</th>
+                  <td mat-cell *matCellDef="let element">{{element.idContato}}</td>
+              </ng-container>
+
+              <!-- coluna NOME -->
+              <ng-container matColumnDef="nome">
+                  <th mat-header-cell *matHeaderCellDef>NOME DO CONTATO</th>
+                  <td mat-cell *matCellDef="let element">{{element.nome}}</td>
+              </ng-container>
+
+              <!-- coluna EMAIL -->
+              <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef>ENDEREÇO DE EMAIL</th>
+                  <td mat-cell *matCellDef="let element">{{element.email}}</td>
+              </ng-container>
+
+              <!-- coluna TELEFONE -->
+              <ng-container matColumnDef="telefone">
+                  <th mat-header-cell *matHeaderCellDef>TELEFONE</th>
+                  <td mat-cell *matCellDef="let element">{{element.telefone | mask : '(00) 00000-0000'}}</td>
+              </ng-container>
+
+              <!-- coluna AÇÕES -->
+              <ng-container matColumnDef="ações">
+                  <th mat-header-cell *matHeaderCellDef>AÇÕES</th>
+                  <td mat-cell *matCellDef="let element">
+                      <button mat-raised-button color="primary"
+                          [routerLink]="['/edicao-contatos', element.idContato]">
+                          Alterar
+                      </button>
+                      &nbsp;
+                      <button mat-raised-button color="warn"
+                          (click)="excluir(element.idContato)">
+                          Excluir
+                      </button>
+                  </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          </table>
+
+          <p>
+              Quantidade total de contatos: {{consulta_contatos.length}}
+          </p>
+
+          <!-- régua de paginação -->
+          <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Página anterior"
+              nextLabel="Próxima página"></pagination-controls>
+
+      </mat-card-content>
+  </mat-card>
+
+</div>

@@ -14,6 +14,9 @@ import { DadosUsuarioComponent } from './dados-usuario/dados-usuario.component';
 import { CadastroContatosComponent } from './cadastro-contatos/cadastro-contatos.component'
 import { NgxMaskModule,IConfig } from 'ngx-mask';
 import { ConsultaContatosComponent } from './consulta-contatos/consulta-contatos.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { EdicaoContatosComponent } from './edicao-contatos/edicao-contatos.component';
+import { ChartModule } from 'angular-highcharts';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) | null = null;
 
 
@@ -25,7 +28,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) | null = null;
     LoginComponent,
     DadosUsuarioComponent,
     CadastroContatosComponent,
-    ConsultaContatosComponent
+    ConsultaContatosComponent,
+    EdicaoContatosComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) | null = null;
     RoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgxPaginationModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]

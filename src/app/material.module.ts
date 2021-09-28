@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
         MatInputModule,
         MatButtonModule,
         MatCardModule,
-        MatGridListModule
+        MatGridListModule,
+        MatTableModule
     ],
     exports: [
         MatSidenavModule,
@@ -29,7 +31,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
         MatInputModule,
         MatButtonModule,
         MatCardModule,
-        MatGridListModule
+        MatGridListModule,
+        MatTableModule
     ]
 })
 

@@ -1,7 +1,6 @@
-import { ContatosService } from './../services/contatos.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Contato } from '../models/contato.model';
+import { ContatosService } from '../services/contatos.service';
 
 @Component({
   selector: 'app-cadastro-contatos',
@@ -10,9 +9,11 @@ import { Contato } from '../models/contato.model';
 })
 export class CadastroContatosComponent implements OnInit {
 
-  mensagem : string = "";
+  mensagem: string = "";
 
-  constructor(private contatosService : ContatosService) { }
+  constructor(
+    private contatosService: ContatosService
+  ) { }
 
   formCadastro = new FormGroup({
     nome: new FormControl('', [Validators.required, Validators.minLength(10)]),
@@ -21,26 +22,24 @@ export class CadastroContatosComponent implements OnInit {
   });
 
   get form(): any {
-    return this.formCadastro.controls;  
+    return this.formCadastro.controls;
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit(event : any) : void {
+  onSubmit(event: any): void {
 
-    let contato: Contato = {
-      idContato: 0,
-      nome: this.formCadastro.value.nome,
-      email: this.formCadastro.value.email,
-      telefone: this.formCadastro.value.telefone
-    };
-
-    this.contatosService.add(contato);
-
-    this.mensagem = `Contato '${contato.nome}'gravado com sucesso`;
-  
-    event.currentTarget.reset();
+    this.contatosService.postContato(this.formCadastro.value)
+      .subscribe(
+        (data: any) => {
+          this.mensagem = data.message;
+          event.currentTarget.reset();
+        },
+        (e) => {
+          console.log(e);
+        }
+      )
   }
 
 }

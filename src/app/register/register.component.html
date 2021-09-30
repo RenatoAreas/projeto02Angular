@@ -1,0 +1,93 @@
+<div>
+
+  <mat-card class="login-card">
+      <mat-card-title>Cadastro de conta de usuário</mat-card-title>
+      <mat-card-subtitle>Preencha o formulario para criar sua conta.</mat-card-subtitle>
+      <mat-card-content>
+
+          <form [formGroup]="formRegister" (ngSubmit)="onSubmit()" autocomplete="off">
+
+              <mat-form-field appearance="fill" class="field">
+                  <mat-label>Nome do usuário:</mat-label>
+                  <input type="nome" matInput placeholder="Ex: Joao Pedro" formControlName="nome" />
+
+                  <mat-error *ngIf="form.nome.touched && form.nome.invalid && form.nome.errors.required">
+                      Por favor, informe o seu nome.
+                  </mat-error>
+
+                  <mat-error *ngIf="form.nome.touched && form.nome.invalid && form.nome.errors.maxlength">
+                      Por favor, informe no mínimo 10 caracteres.
+                  </mat-error>
+
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="field">
+                  <mat-label>Email de Acesso:</mat-label>
+                  <input type="email" matInput placeholder="Ex: joaopedro@gmail.com" formControlName="email" />
+
+                  <mat-error *ngIf="form.email.touched && form.email.invalid && form.email.errors.required">
+                      Por favor, informe o email de acesso.
+                  </mat-error>
+
+                  <mat-error *ngIf="form.email.touched && form.email.invalid && form.email.errors.email">
+                      Por favor, preencha um endereço de email válido.
+                  </mat-error>
+
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="field">
+                  <mat-label>Senha de Acesso:</mat-label>
+                  <input type="password" matInput placeholder="Digite aqui" formControlName="senha" />
+
+                  <mat-error *ngIf="form.senha.touched && form.senha.invalid && form.senha.errors?.passwordInvalid">
+                      Por favor, informe sua senha de 8 a 20 caracteres.
+                  </mat-error>
+
+                  <mat-error *ngIf="form.senha.touched && form.senha.invalid && form.senha.errors?.passwordAnyDigit">
+                      Por favor, informe pelo menos 1 dígito numérico na sua senha.
+                  </mat-error>
+
+                  <mat-error
+                      *ngIf="form.senha.touched && form.senha.invalid && form.senha.errors?.passwordAnyIsUpper">
+                      Por favor, informe pelo menos 1 letra maiúscula.
+                  </mat-error>
+
+                  <mat-error
+                      *ngIf="form.senha.touched && form.senha.invalid && form.senha.errors?.passwordAnyIsLower">
+                      Por favor, informe pelo menos 1 letra minúscula.
+                  </mat-error>
+
+                  <mat-error
+                      *ngIf="form.senha.touched && form.senha.invalid && form.senha.errors?.passwordAnyIsSpecialChar">
+                      Por favor, informe pelo menos 1 caracter especial (@, #, $, %, &).
+                  </mat-error>
+
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="field">
+                  <mat-label>Confirme sua senha:</mat-label>
+                  <input type="password" matInput placeholder="Digite aqui" formControlName="senhaConfirmacao" />
+
+                  <mat-error *ngIf="form.senhaConfirmacao.touched && form.senhaConfirmacao.invalid && form.senhaConfirmacao.errors.required">
+                      Por favor, preencha a confirmação da senha.
+                  </mat-error>
+
+              </mat-form-field>
+
+              <div class="field">
+                  <button [disabled]="!formRegister.valid || isLoading" class="button" mat-raised-button color="primary" type="submit">
+                      Realizar Cadastro
+                  </button>
+              </div>
+
+          </form>
+
+          <br/>
+
+          <strong>{{mensagem}}</strong>
+
+      </mat-card-content>
+  </mat-card>
+
+
+</div>

@@ -1,7 +1,9 @@
-import { LoginService } from './../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { passwordValidator } from 'src/validators/password-validator';
+import { LoginService } from '../services/login.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterComponent } from '../register/register.component';
+import { PasswordRecoverComponent } from '../password-recover/password-recover.component';
 
 @Component({
   selector: 'app-login',
@@ -10,24 +12,50 @@ import { passwordValidator } from 'src/validators/password-validator';
 })
 export class LoginComponent implements OnInit {
 
+  //atributos
   mensagem: string = "";
+  isLoading: boolean = false;
 
-  constructor(private loginService:LoginService) { }
+  //construtor da classe é utilizado para fazermos as
+  //injeções de dependencia (inicializações)
+  constructor(
+    private loginService: LoginService,
+    private dialog: MatDialog
+  ) { }
 
-  //definindo o formulário
+  //função para abrir a janela modal da tela de cadastre-se
+  openRegisterDialog() : void {
+    //abrir a janela modal
+    this.dialog.open(RegisterComponent, {
+      width: '600px'
+    });
+  }
 
+  //função para abrir a janela modal da tela de lembrete de senha
+  openPasswordRecoverDialog() : void {
+    //abrir a janela modal
+    this.dialog.open(PasswordRecoverComponent, {
+      width: '600px'
+    });
+  }
+
+  //definindo o formulario
   formLogin = new FormGroup({
-    email : new FormControl('', [
+
+    //campo
+    email: new FormControl('', [
       Validators.required,
       Validators.email
     ]),
-    senha : new FormControl('', [
-      passwordValidator
+
+    //campo
+    senha: new FormControl('', [
+      Validators.required
     ]),
   });
 
-  //Objeto para acessar os campos do formulário na pagina HTML
-  get form(): any{
+  //objeto para acessar os campos do formulario na pagina HTML
+  get form(): any {
     return this.formLogin.controls;
   }
 
@@ -35,17 +63,28 @@ export class LoginComponent implements OnInit {
   }
 
   //função para executar o SUBMIT do formulário
+  onSubmit() {
 
-  onSubmit(){
-    var data = this.formLogin.value
+    this.mensagem = "Processando requisição, por favor aguarde.";
+    this.isLoading = true;
 
-    if(this.loginService.signIn(data)){
-      //recarregar a pagina inicial do sistema 
-      window.location.href = "/";
+    this.loginService.postLogin(this.formLogin.value)
+      .subscribe(
+        (data:any) => {
+          //função para gravar os dados do usuario
+          //autenticado na localstorage
+          this.loginService.signIn(data);
+          window.location.href = "/home";
+        },
+        (e) => {
+          switch(e.status){
+            case 401:
+              this.mensagem = e.error;
+              break;
+          }
 
-    }else{
-      this.mensagem = "Acesso negado. Usuário inválido";
-    }
+          this.isLoading = false;
+        }
+      )
   }
-
 }

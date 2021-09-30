@@ -27,24 +27,38 @@ export class ConsultaContatosComponent implements OnInit {
 
   ngOnInit(): void {
     //evento executado quando o componente é carregado
-    this.consulta_contatos = this.contatosService.getAll();
+    this.contatosService.getContatos()
+      .subscribe(
+        (data) => {
+          this.consulta_contatos = data as any[];
+        },
+        (e) => {
+          console.log(e);
+        }
+      )
   }
 
   //método para realizar a exclusão do contato
-  excluir(idContato : number): void {
+  excluir(idContato: string): void {
 
-    const contato = this.contatosService.getById(idContato);
+    if (window.confirm(`Deseja realmente excluir o contato?`)) {
 
-    if(window.confirm(`Deseja realmente excluir o contato ${contato.nome}?`)){
-      this.contatosService.delete(contato);
-      this.ngOnInit();
+      this.contatosService.deleteContato(idContato)
+        .subscribe(
+          (data: any) => {
+            this.mensagem = data.message;
+            this.ngOnInit();
+          },
+          (e) => {
+            console.log(e);
+          }
+        )
 
-      this.mensagem = `Contato ${contato.nome}, excluído com sucesso.`;
     }
   }
 
   //função para trocar de página
-  handlePageChange(event: any) : void {
+  handlePageChange(event: any): void {
     this.page = event;
   }
 

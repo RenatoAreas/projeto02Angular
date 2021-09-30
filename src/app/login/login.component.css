@@ -1,16 +1,21 @@
 .login-card {
-    max-width: 400px;
-    border: 1px solid #ccc;
-  }
- 
-.field {
-    width: 100%;
-    margin-top: 10px;
+  max-width: 400px;
+  border: 1px solid #ccc;
 }
- 
+
+.field {
+  width: 100%;
+  margin-top: 10px;
+}
+
 .main-div{
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button{
+  width: 100%!important;
+  min-width: unset!important;
+}

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ContatosService } from '../services/contatos.service';
-import { Contato } from '../models/contato.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -31,24 +30,41 @@ export class EdicaoContatosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //capturar o parametro id enviado pela URL
+    //capturar o patametro id enviado pela URL
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
 
     //consultar os dados do contato atraves do id
+    this.contatosService.getContatoById(id)
+      .subscribe(
+        (data: any) => {
 
-    const contato = this.contatosService.getById(Number.parseFloat (id));
+          const contato = data;
 
-    //preencher os campos do formulario com os dados do contato
-    this.formEdicao.controls.idContato.setValue(contato.idContato);
-    this.formEdicao.controls.nome.setValue(contato.nome);
-    this.formEdicao.controls.telefone.setValue(contato.telefone);
-    this.formEdicao.controls.email.setValue(contato.email);
+          //preencher os campos do formulario com os dados do contato
+          this.formEdicao.controls.idContato.setValue(contato.idContato);
+          this.formEdicao.controls.nome.setValue(contato.nome);
+          this.formEdicao.controls.telefone.setValue(contato.telefone);
+          this.formEdicao.controls.email.setValue(contato.email);
+
+        },
+        (e) => {
+          console.log(e);
+        }
+      )
   }
 
   onSubmit(): void {
 
-    this.contatosService.update(this.formEdicao.value);
-    this.mensagem = "Dados atualizados com sucesso."
+    this.contatosService.putContato(this.formEdicao.value)
+      .subscribe(
+        (data: any) => {
+          this.mensagem = data.message;
+          this.formEdicao.reset();
+        },
+        (e) => {
+          console.log(e);
+        }
+      )
   }
 
 }
